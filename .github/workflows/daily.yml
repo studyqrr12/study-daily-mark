@@ -22,7 +22,6 @@ jobs:
             repository: studyqrr12/study
             ref: main
             path: study
-            token: ${{ secrets.ACTIONS_SECRET }}
 
       - name: checkout
         uses: actions/checkout@v3
@@ -36,3 +35,14 @@ jobs:
           cd study-daily-mark
           npm i
           npm start
+          cd ..
+
+      - name: Commit files
+        run : |
+          cd study-daily-mark
+          git pull || echo ""
+          git add README.md || echo ""
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git commit -m "Github Action Commit" || echo ""
+          git push || echo ""

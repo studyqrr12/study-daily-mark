@@ -15,7 +15,7 @@ async function main() {
         });
 
         const logs = await simpleGit.log({});
-        const mainCommits = logs.all.filter(item => item.refs.split(' -> ')[1] == 'main').map(item => Object.assign(item, { __date: parseDateString(item.date) }));
+        const mainCommits = logs.all.map(item => Object.assign(item, { __date: parseDateString(item.date) }));
 
         mainCommits.forEach(item => {
             const date = item.__date;
@@ -59,8 +59,9 @@ async function main() {
     lastDate.setMonth(lastDate.getMonth() + 1);
     lastDate.setDate(0);
 
-    const thisMonth = calendarMap?.[current.getFullYear()]?.[current.getMonth()] ?? {};
+    console.log(JSON.stringify(calendarMap, null, 2));
 
+    const thisMonth = calendarMap?.[current.getFullYear()]?.[current.getMonth()] ?? {};
     const thisMonthFill = new Array(lastDate.getDate()).fill(0).map((val, idx) => Object.values(thisMonth[idx] ?? {}).reduce((init, curr) => { return init += curr }, 0) ?? val);
 
     lastDate.setDate(1);
