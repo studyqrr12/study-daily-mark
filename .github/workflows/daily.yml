@@ -1,0 +1,38 @@
+name: daily
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '1 9 * * *'
+
+env:
+  TZ: Asia/Seoul
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+      
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+            repository: studyqrr12/study
+            ref: main
+            path: study
+            token: ${{ secrets.ACTIONS_SECRET }}
+
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          repository: studyqrr12/study-daily-mark
+          ref: main
+          path: study-daily-mark
+
+      - name: Node Start Schedule
+        run: |
+          cd study-daily-mark
+          npm i
+          npm start
