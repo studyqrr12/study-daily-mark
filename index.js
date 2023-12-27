@@ -16,7 +16,7 @@ async function main() {
 
         const logs = await simpleGit.log({});
 
-         console.log(JSON.stringify(logs.all),null,2);
+         console.log(JSON.stringify(logs.all,null,2));
 
         const mainCommits = logs.all.map(item => Object.assign(item, { __date: parseDateString(item.date) }));
 
