@@ -22,6 +22,7 @@ jobs:
             repository: studyqrr12/study
             ref: main
             path: study
+            fetch-depth: 0
 
       - name: checkout
         uses: actions/checkout@v3
